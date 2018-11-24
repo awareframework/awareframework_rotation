@@ -26,6 +26,7 @@ class _MyAppState extends State<MyApp> {
 
     sensor = new RotationSensor(config);
 
+    sensor.start();
   }
 
   @override

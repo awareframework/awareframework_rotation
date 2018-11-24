@@ -14,12 +14,12 @@ class RotationSensor extends AwareSensorCore {
   RotationSensor(RotationSensorConfig config):this.convenience(config);
   RotationSensor.convenience(config) : super(config){
     /// Set sensor method & event channels
-    super.setSensorChannels(_rotationMethod, _rotationStream);
+    super.setMethodChannel(_rotationMethod);
   }
 
   /// A sensor observer instance
-  Stream<Map<String,dynamic>> get onDataChanged {
-     return super.receiveBroadcastStream("on_data_changed").map((dynamic event) => Map<String,dynamic>.from(event));
+  Stream<Map<String,dynamic>> onDataChanged(String id) {
+     return super.getBroadcastStream(_rotationStream, "on_data_changed",id).map((dynamic event) => Map<String,dynamic>.from(event));
   }
 }
 
@@ -37,9 +37,10 @@ class RotationSensorConfig extends AwareSensorConfig{
 
 /// Make an AwareWidget
 class RotationCard extends StatefulWidget {
-  RotationCard({Key key, @required this.sensor}) : super(key: key);
+  RotationCard({Key key, @required this.sensor, this.cardId = "rotation_card"}) : super(key: key);
 
   RotationSensor sensor;
+  String cardId;
 
   @override
   RotationCardState createState() => new RotationCardState();
@@ -58,7 +59,7 @@ class RotationCardState extends State<RotationCard> {
 
     super.initState();
     // set observer
-    widget.sensor.onDataChanged.listen((event) {
+    widget.sensor.onDataChanged(widget.cardId).listen((event) {
       setState((){
         if(event!=null){
           DateTime.fromMicrosecondsSinceEpoch(event['timestamp']);
@@ -85,6 +86,13 @@ class RotationCardState extends State<RotationCard> {
       title: "Rotation",
       sensor: widget.sensor
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    widget.sensor.cancelBroadcastStream(widget.cardId);
+    super.dispose();
   }
 
 }
