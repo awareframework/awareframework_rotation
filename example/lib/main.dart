@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:awareframework_rotation/awareframework_rotation.dart';
-import 'package:awareframework_core/awareframework_core.dart';
 
 void main() => runApp(new MyApp());
 
@@ -22,6 +19,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     config = RotationSensorConfig()
+      ..frequency = 100
       ..debug = true;
 
     sensor = new RotationSensor(config);
@@ -38,7 +36,7 @@ class _MyAppState extends State<MyApp> {
           appBar: new AppBar(
             title: const Text('Plugin Example App'),
           ),
-          body: new RotationCard(sensor: sensor,)
+          body: new RotationCard(sensor: sensor, height: 200.0,)
       ),
     );
   }
