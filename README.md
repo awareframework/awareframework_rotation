@@ -1,6 +1,8 @@
 # Aware Rotation
 
-TODO
+[![Build Status](https://travis-ci.org/awareframework/awareframework_rotation.svg?branch=master)](https://travis-ci.org/awareframework/awareframework_rotation)
+
+This sensor module allows us to access the rotation rate of the device.
 
 ## Install the plugin into project
 1. Edit `pubspec.yaml`
@@ -19,10 +21,11 @@ import 'package:awareframework_core/awareframework_core.dart';
 ### rotation Sensor
 - `start()`
 - `stop()` 
-- `sync(force: Boolean)`
+- `sync(bool force)`
 - `enable()`
 - `disable()`
 - `isEnable()`
+- `setLabel(String label)`
 
 ### Configuration Keys
 TODO
@@ -50,14 +53,14 @@ var config = RotationSensorConfig()
   ..label = "label";
 
 // init sensor
-var sensor = new RotationSensor(config);
+var sensor = new RotationSensor.init(config);
 
-void mathod(){
+void method(){
     /// start 
     sensor.start();
     
     /// set observer
-    sensor.onDataChanged.listen((Map<String,dynamic> result){
+    sensor.onDataChanged.listen(RotationData data){
       setState((){
         // Your code here
       });

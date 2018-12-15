@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
       ..frequency = 100
       ..debug = true;
 
-    sensor = new RotationSensor(config);
+    sensor = new RotationSensor.init(config);
 
     sensor.start();
   }

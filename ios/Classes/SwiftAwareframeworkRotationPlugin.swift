@@ -32,7 +32,7 @@ public class SwiftAwareframeworkRotationPlugin: AwareFlutterPluginCore, FlutterP
         // add own channel
         
         super.setMethodChannel(with: registrar, instance: instance, channelName: "awareframework_rotation/method")
-        super.setEventChannels(with: registrar, instance: instance, channelNames: ["awareframework_rotation/event"])
+        super.setEventChannels(with: registrar, instance: instance, channelNames: ["awareframework_rotation/event","awareframework_rotation/event_on_data_changed"])
     }
 
 
